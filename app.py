@@ -1,9 +1,22 @@
 from flask import Flask
 from flask import jsonify
-import trainermodel as tr
-#import numpy as np
+#import trainermodel as tr
+import pandas as pd
+import numpy as np
 import pickle
+from sklearn.preprocessing import LabelEncoder
+from sklearn.linear_model import LogisticRegression
 model=pickle.load(open('model.pkl','rb'))
+encoder=LabelEncoder()
+d1= pd.read_csv('training.csv')
+y=d1.iloc[:,-1:]
+y['prognosis']=encoder.fit_transform(y['prognosis'])
+code_value=y['prognosis'].unique()
+name_value=(d1['prognosis'].unique())
+name_value=sorted(name_value)
+
+m=[x  for x in range(len(name_value))]
+name_maper={m[i]:name_value[i] for i in range(len(name_value))}
 app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def welcome():
@@ -17,7 +30,9 @@ def success():
 def show_post(inputs):
     inputs=str(inputs)
     inputs=inputs.split('_')
-    symptoms = tr.X.columns.values
+    
+    X=d1.iloc[:,:-1]
+    symptoms = X.columns.values
     symptom_index={}
     for index, value in enumerate(symptoms):
         symptom = value
@@ -25,7 +40,7 @@ def show_post(inputs):
     
     data_dict = {
         
-        "predictions_classes":tr.encoder.classes_,
+        "predictions_classes":LogisticRegression.encoder.classes_,
         "symptom_index":symptom_index
     }
     input_data = [0] * len(data_dict["symptom_index"])
@@ -35,10 +50,10 @@ def show_post(inputs):
         
     # reshaping the input data and converting it
     # into suitable format for model predictions
-    input_data = tr.np.array(input_data).reshape(1,-1)
+    input_data = np.array(input_data).reshape(1,-1)
     final_pred=model.predict(input_data)[0]
     return jsonify(code=str(final_pred),
-    name=tr.name_maper[final_pred]
+    name=name_maper[final_pred]
     )   
 
 
