@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import jsonify
 import trainermodel as tr
-import numpy as np
+#import numpy as np
 import pickle
 model=pickle.load(open('model.pkl','rb'))
 app = Flask(__name__)
@@ -35,7 +35,7 @@ def show_post(inputs):
         
     # reshaping the input data and converting it
     # into suitable format for model predictions
-    input_data = np.array(input_data).reshape(1,-1)
+    input_data = tr.np.array(input_data).reshape(1,-1)
     final_pred=model.predict(input_data)[0]
     return jsonify(code=str(final_pred),
     name=tr.name_maper[final_pred]
