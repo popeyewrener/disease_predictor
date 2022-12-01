@@ -5,7 +5,7 @@ import numpy as np
 import pickle
 model=pickle.load(open('model.pkl','rb'))
 app = Flask(__name__)
-@app.route('/hello/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def welcome():
     return "Hello World!"
 @app.route('/[0,0,0,6]/')
@@ -54,4 +54,4 @@ def show_post(inputs):
 def print_list():
     return jsonify(list(range(5)))    
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=105)
+    app.run(debug=False,host='0.0.0.0')
