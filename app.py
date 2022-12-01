@@ -69,4 +69,4 @@ def show_post(inputs):
 def print_list():
     return jsonify(list(range(5)))    
 if __name__ == '__main__':
-    app.run(debug=False,host='0.0.0.0')
+    app.run()
