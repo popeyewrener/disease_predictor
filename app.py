@@ -49,5 +49,3 @@ def show_post(inputs):
 @app.route('/numbers/')
 def print_list():
     return jsonify(list(range(5)))    
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=105)
