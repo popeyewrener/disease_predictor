@@ -2,3 +2,4 @@ Flask
 numpy
 jsonify
 pickle5
+scikit-learn
