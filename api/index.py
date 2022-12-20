@@ -32,10 +32,11 @@ def show_post(inputs):
     # reshaping the input data and converting it
     # into suitable format for model predictions
     input_data = array(input_data).reshape(1,-1)
-    final_pred=model.predict(input_data)[0]
-    return jsonify(code=str(final_pred),
+    #final_pred=model.predict(input_data)[0]
+    return 0
+'''jsonify(code=str(final_pred),
     name=name_maper[final_pred]
-    )   
+    )   '''
 
 
     
