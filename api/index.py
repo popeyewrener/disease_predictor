@@ -34,9 +34,7 @@ def show_post(inputs):
     input_data = array(input_data).reshape(1,-1)
     #final_pred=model.predict(input_data)[0]
     return 0
-'''jsonify(code=str(final_pred),
-    name=name_maper[final_pred]
-    )   '''
+
 
 
     
